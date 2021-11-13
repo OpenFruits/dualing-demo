@@ -8,6 +8,9 @@ export const getVimeoUserList = async () => {
     where("condition", "in", ["shooting", "waiting"])
   );
   const snapShot = await getDocs(usersQuery);
+  console.log(usersRef);
+  console.log(usersQuery);
+  console.log(snapShot);
   const vimeoUsers = snapShot.docs.map((s) => {
     return {
       studentId: s.id,
