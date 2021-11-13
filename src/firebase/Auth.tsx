@@ -18,6 +18,8 @@ const AuthProvider = (props: any) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
+      console.log("stateChanged", user);
+
       if (user) {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
