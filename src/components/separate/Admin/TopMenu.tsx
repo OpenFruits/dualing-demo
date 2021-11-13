@@ -23,25 +23,26 @@ export const TopMenu: VFC = () => {
   // ユーザー三件取得
   const getTwoUsers = async () => {
     const ref = collection(db, "users");
+    console.log("ref", ref);
     const q = query(ref, limit(2));
+    console.log("query", q);
     const snapShot = await getDocs(q);
+    console.log("snapShot", snapShot);
     snapShot.docs.map((doc) => {
-      console.log(doc.data());
+      console.log(`${doc.id} -> ${doc.data().firstName}`);
     });
   };
 
   // testドキュメントにデータを挿入
   const createData = async () => {
     const ref = collection(db, "test");
-    const snapShot = await getDocs(query(collection(db, "test")));
+    const snapShot = await getDocs(ref);
     await setDoc(doc(ref), { text: `テスト：${snapShot.docs.length + 1}` });
-    snapShot.docs.map((doc) => {
-      console.log(doc.data());
-    });
   };
 
-  const testFunction = async () => {
-    await getTwoUsers();
+  const testFunction = () => {
+    console.log("clicked!");
+    getTwoUsers();
     // createData();
   };
 

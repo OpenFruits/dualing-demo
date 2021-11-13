@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { auth, db } from "src/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { getVimeoUserList } from "src/components/separate/Admin/fetch/getVimeoUserList";
 
 type ContextType = {
   currentUser: any;
@@ -19,6 +20,8 @@ const AuthProvider = (props: any) => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const data = await getVimeoUserList();
+        console.log(data);
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         const companyRef = doc(db, "companies", user.uid);
