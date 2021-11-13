@@ -3,12 +3,12 @@ import { auth, db } from "src/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "@firebase/auth";
 
-type AuthContext = {
+type ContextType = {
   currentUser: any;
   setCurrentUser: React.Dispatch<any>;
 };
 
-const AuthContext = createContext<AuthContext>({
+const AuthContext = createContext<ContextType>({
   currentUser: undefined,
   setCurrentUser: () => {},
 });
