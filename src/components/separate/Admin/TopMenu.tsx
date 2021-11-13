@@ -9,6 +9,7 @@ import {
   collection,
   doc,
   getDocs,
+  getDoc,
   limit,
   query,
   setDoc,
@@ -20,17 +21,15 @@ export const TopMenu: VFC = () => {
   const onClose = () => setIsOpen(false);
   const onOpen = () => setIsOpen(true);
 
-  // ユーザー三件取得
-  const getTwoUsers = async () => {
-    const ref = collection(db, "users");
+  const getUser = async () => {
+    const ref = doc(db, "users", "fq5CvpRActcBF20RPl5n9jBVMGW2");
     console.log("ref", ref);
-    const q = query(ref, limit(2));
-    console.log("query", q);
-    const snapShot = await getDocs(q);
-    console.log("snapShot", snapShot);
-    snapShot.docs.map((doc) => {
-      console.log(`${doc.id} -> ${doc.data().firstName}`);
-    });
+    const snapShot = await getDoc(ref);
+    if (snapShot.exists()) {
+      console.log(`${snapShot.id} -> ${snapShot.data().firstName}`);
+    } else {
+      console.log("not find");
+    }
   };
 
   // testドキュメントにデータを挿入
@@ -41,8 +40,7 @@ export const TopMenu: VFC = () => {
   };
 
   const testFunction = () => {
-    console.log("clicked!");
-    getTwoUsers();
+    getUser();
     // createData();
   };
 
