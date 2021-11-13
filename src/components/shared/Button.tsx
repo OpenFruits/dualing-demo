@@ -74,3 +74,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonType>(
     );
   }
 );
+
+Button.displayName === "Button";
