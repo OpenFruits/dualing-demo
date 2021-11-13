@@ -25,6 +25,7 @@ const AuthProvider = (props: any) => {
         const userSnap = await getDoc(userRef);
         const companyRef = doc(db, "companies", user.uid);
         const companySnap = await getDoc(companyRef);
+        console.log(userSnap);
 
         if (userSnap.exists()) {
           setCurrentUser({
