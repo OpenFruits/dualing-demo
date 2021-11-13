@@ -98,9 +98,11 @@ const Edit: NextPage = () => {
   }, [register]);
 
   // 未ログイン
-  auth.onAuthStateChanged((user) => {
-    if (!user) router.push("/signin");
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) router.push("/signin");
+    });
+  }, []);
 
   // ローディング
   if (!currentUser) return <Loading />;

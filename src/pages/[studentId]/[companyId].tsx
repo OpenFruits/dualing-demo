@@ -71,9 +71,11 @@ const CompanyId: NextPage = () => {
   }, [companyId, isMatch]);
 
   // 未ログイン
-  auth.onAuthStateChanged((user) => {
-    if (!user) router.push("/signin");
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) router.push("/signin");
+    });
+  }, []);
 
   // ローディング
   if (!currentUser || isMatch === undefined) {

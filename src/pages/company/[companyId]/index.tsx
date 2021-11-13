@@ -299,9 +299,11 @@ const CompanyId: NextPage = () => {
     getOptionUserList();
   }, [optionUsers]);
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) router.push("/company/signin");
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/company/signin");
+    });
+  }, []);
 
   if (!currentUser) return <Loading />;
 

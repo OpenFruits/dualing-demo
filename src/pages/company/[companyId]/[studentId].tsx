@@ -181,9 +181,11 @@ const StudentId: NextPage = () => {
     relation === "block" && setNotFound(true);
   }, [relation]);
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) router.push("/company/signin");
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/company/signin");
+    });
+  }, []);
 
   if (!currentUser || !relation) return <Loading />;
 
