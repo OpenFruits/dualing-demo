@@ -68,8 +68,8 @@ const initState: DatePickerReducerState = {
   isOpen: false,
   date: "",
   displayDate: "",
-  month: null,
-  year: null,
+  month: 0,
+  year: 0,
   daysInMonthArr: [],
   blankDaysArr: [],
 };
@@ -249,8 +249,10 @@ export const DatePicker: VFC<Props> = ({
   const [state, dispatch] = useReducer<
     React.Reducer<DatePickerReducerState, DatePickeReducerAction>
   >(datePickerReducer, initState);
-  const displayDateRef = useRef<HTMLInputElement>();
-  const daysDivRef = useRef<HTMLDivElement>();
+  const displayDateRef =
+    useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
+  const daysDivRef =
+    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     dispatch({ type: "SET_INIT_STATE" });
@@ -278,16 +280,16 @@ export const DatePicker: VFC<Props> = ({
 
   const toggleDisplayDateFocus = (): void => {
     const displayDate = displayDateRef.current;
-    if (displayDate.classList.contains("shadow-outline")) {
+    if (displayDate?.classList.contains("shadow-outline")) {
       displayDate.classList.remove("shadow-outline");
       displayDate.blur();
     } else {
-      displayDate.classList.add("shadow-outline");
-      displayDate.focus();
+      displayDate?.classList.add("shadow-outline");
+      displayDate?.focus();
     }
 
     const daysDiv = daysDivRef.current;
-    daysDiv.focus();
+    daysDiv?.focus();
   };
 
   useEffect(() => {

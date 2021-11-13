@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Button } from "src/components/shared/Button";
 import { Input } from "src/components/shared/Input";
 import { auth } from "src/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 type Inputs = { email: string };
 
@@ -18,8 +19,7 @@ export const ResetPasswordForm: VFC<{ onClose: () => void }> = ({
 
   const resetPassword: SubmitHandler<Inputs> = (data) => {
     if (confirm("パスワードを再設定します。よろしいですか？")) {
-      auth
-        .sendPasswordResetEmail(data.email)
+      sendPasswordResetEmail(auth, data.email)
         .then(() => {
           toast.success("メールをご確認ください");
           onClose();
