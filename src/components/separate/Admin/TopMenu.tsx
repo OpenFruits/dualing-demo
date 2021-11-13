@@ -4,13 +4,46 @@ import { Layout } from "src/components/shared/Layout";
 import { Button } from "src/components/shared/Button";
 import { CompanySignup } from "src/components/separate/Admin/CompanySignup";
 import { Dialog, Transition } from "@headlessui/react";
+import { db } from "src/firebase";
+import {
+  collection,
+  doc,
+  getDocs,
+  limit,
+  query,
+  setDoc,
+} from "firebase/firestore";
 
 export const TopMenu: VFC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const onOpen = () => setIsOpen(true);
-  const testFunction = () => {};
+
+  // ユーザー三件取得
+  const get3users = async () => {
+    const ref = collection(db, "users");
+    const q = query(ref, limit(3));
+    const snapShot = await getDocs(q);
+    snapShot.docs.map((doc) => {
+      console.log(doc.data());
+    });
+  };
+
+  // testドキュメントにデータを挿入
+  const createData = async () => {
+    const ref = collection(db, "test");
+    await setDoc(doc(ref), { text: "テスト" });
+    const snapShot = await getDocs(query(ref));
+    snapShot.docs.map((doc) => {
+      console.log(doc.data());
+    });
+  };
+
+  const testFunction = () => {
+    get3users();
+    createData();
+  };
 
   return (
     <Layout>
@@ -50,7 +83,7 @@ export const TopMenu: VFC = () => {
         <Button
           variant="solid-blue"
           className="shadow-md"
-          disabled
+          // disabled
           onClick={testFunction}
         >
           機能テスト実行

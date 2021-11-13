@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { auth, db } from "src/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "@firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 type ContextType = {
   currentUser: any;
@@ -18,14 +18,11 @@ const AuthProvider = (props: any) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      console.log("stateChanged", user);
-
       if (user) {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         const companyRef = doc(db, "companies", user.uid);
         const companySnap = await getDoc(companyRef);
-        console.log("usersnap", userSnap.exists(), userSnap);
 
         if (userSnap.exists()) {
           setCurrentUser({
