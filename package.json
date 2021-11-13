@@ -32,7 +32,7 @@
     "@types/react-anchor-link-smooth-scroll": "^1.0.2",
     "@types/react-datepicker": "^3.1.8",
     "@types/react-dom": "^17.0.3",
-    "@types/react-select": "^4.3.1",
+    "@types/react-select": "^4.0.18",
     "autoprefixer": "^10.4.0",
     "eslint": "7",
     "eslint-config-next": "12.0.0",
