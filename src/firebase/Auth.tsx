@@ -20,8 +20,6 @@ const AuthProvider = (props: any) => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const data = await getVimeoUserList();
-        console.log(data);
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         const companyRef = doc(db, "companies", user.uid);
