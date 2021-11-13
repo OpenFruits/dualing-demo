@@ -21,6 +21,10 @@ const StudentId: NextPage = () => {
   const { currentUser } = useContext(AuthContext);
   const condition = currentUser?.condition;
 
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
   // 未ログイン
   auth.onAuthStateChanged((user) => {
     if (!user) router.push("/signin");
