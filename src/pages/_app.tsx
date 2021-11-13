@@ -1,6 +1,8 @@
 import "tailwindcss/tailwind.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
+import { AuthProvider } from "src/firebase/Auth";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,7 +10,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Toaster />
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }
