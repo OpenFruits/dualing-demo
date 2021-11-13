@@ -6,7 +6,13 @@ import Vimeo from "@u-wave/react-vimeo";
 import toast from "react-hot-toast";
 import { Dialog, Transition } from "@headlessui/react";
 import { Button } from "src/components/shared/Button";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import type { VimeoUser } from "src/constants/types";
 import { getVimeoUserList } from "src/components/separate/Admin/fetch/getVimeoUserList";
 
