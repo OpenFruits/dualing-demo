@@ -1,5 +1,5 @@
 import { db } from "src/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 
 export const getVimeoUserList = async () => {
   const usersRef = collection(db, "users");
