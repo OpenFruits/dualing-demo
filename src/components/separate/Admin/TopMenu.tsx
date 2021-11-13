@@ -21,9 +21,9 @@ export const TopMenu: VFC = () => {
   const onOpen = () => setIsOpen(true);
 
   // ユーザー三件取得
-  const get3users = async () => {
+  const getTwoUsers = async () => {
     const ref = collection(db, "users");
-    const q = query(ref, limit(3));
+    const q = query(ref, limit(2));
     const snapShot = await getDocs(q);
     snapShot.docs.map((doc) => {
       console.log(doc.data());
@@ -33,16 +33,16 @@ export const TopMenu: VFC = () => {
   // testドキュメントにデータを挿入
   const createData = async () => {
     const ref = collection(db, "test");
-    await setDoc(doc(ref), { text: "テスト" });
-    const snapShot = await getDocs(query(ref));
+    const snapShot = await getDocs(query(collection(db, "test")));
+    await setDoc(doc(ref), { text: `テスト：${snapShot.docs.length + 1}` });
     snapShot.docs.map((doc) => {
       console.log(doc.data());
     });
   };
 
-  const testFunction = () => {
-    get3users();
-    createData();
+  const testFunction = async () => {
+    await getTwoUsers();
+    // createData();
   };
 
   return (
