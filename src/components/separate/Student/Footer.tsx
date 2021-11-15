@@ -3,7 +3,7 @@ import Link from "next/link";
 import router from "next/router";
 import { db, auth } from "src/firebase";
 import { deleteUser } from "firebase/auth";
-import { AuthContext } from "src/firebase/Auth";
+import { AuthContext, noCurrentUser } from "src/firebase/Auth";
 import toast from "react-hot-toast";
 import { corporateURL, googleFormUrl } from "src/constants/externalLink";
 import { Dialog, Transition } from "@headlessui/react";
@@ -20,7 +20,7 @@ export const Footer: VFC = () => {
   const logout = () => {
     if (confirm("ログアウトします。よろしいですか？")) {
       auth.signOut().then(() => {
-        setCurrentUser(undefined);
+        setCurrentUser(noCurrentUser);
         router.push("/signin");
         toast.success("ログアウトしました");
       });

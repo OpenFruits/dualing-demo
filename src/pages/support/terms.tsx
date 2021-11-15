@@ -9,12 +9,12 @@ const Terms: VFC = () => {
 
   return (
     <>
-      {currentUser ? (
+      {currentUser?.uid !== "" ? (
         <LoginHeader href={`/${currentUser?.uid}`} pageTitle="" />
       ) : (
         <Header />
       )}
-      {!currentUser && <div className="pt-14" />}
+      {currentUser?.uid === "" && <div className="pt-14" />}
       <TermsComponent />
     </>
   );

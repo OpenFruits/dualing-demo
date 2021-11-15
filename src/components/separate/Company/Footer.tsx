@@ -2,7 +2,7 @@ import { VFC, useContext } from "react";
 import Link from "next/link";
 import router from "next/router";
 import { auth } from "src/firebase";
-import { AuthContext } from "src/firebase/Auth";
+import { AuthContext, noCurrentUser } from "src/firebase/Auth";
 import toast from "react-hot-toast";
 import { corporateURL, googleFormUrl } from "src/constants/externalLink";
 
@@ -12,7 +12,7 @@ export const Footer: VFC = () => {
   const logout = () => {
     if (confirm("ログアウトします。よろしいですか？")) {
       auth.signOut().then(() => {
-        setCurrentUser(undefined);
+        setCurrentUser(noCurrentUser);
         router.push("/company/signin");
         toast.success("ログアウトしました");
       });

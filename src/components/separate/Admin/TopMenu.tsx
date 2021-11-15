@@ -4,45 +4,13 @@ import { Layout } from "src/components/shared/Layout";
 import { Button } from "src/components/shared/Button";
 import { CompanySignup } from "src/components/separate/Admin/CompanySignup";
 import { Dialog, Transition } from "@headlessui/react";
-import { db } from "src/firebase";
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  limit,
-  query,
-  setDoc,
-} from "firebase/firestore";
 
 export const TopMenu: VFC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const onOpen = () => setIsOpen(true);
-
-  const getUser = async () => {
-    const ref = doc(db, "users", "fq5CvpRActcBF20RPl5n9jBVMGW2");
-    console.log("ref", ref);
-    const snapShot = await getDoc(ref);
-    if (snapShot.exists()) {
-      console.log(`${snapShot.id} -> ${snapShot.data().firstName}`);
-    } else {
-      console.log("not find");
-    }
-  };
-
-  // testドキュメントにデータを挿入
-  const createData = async () => {
-    const ref = collection(db, "test");
-    const snapShot = await getDocs(ref);
-    await setDoc(doc(ref), { text: `テスト：${snapShot.docs.length + 1}` });
-  };
-
-  const testFunction = () => {
-    getUser();
-    // createData();
-  };
+  const testFunction = () => {};
 
   return (
     <Layout>
@@ -82,7 +50,7 @@ export const TopMenu: VFC = () => {
         <Button
           variant="solid-blue"
           className="shadow-md"
-          // disabled
+          disabled
           onClick={testFunction}
         >
           機能テスト実行

@@ -2,7 +2,27 @@ import React, { createContext, useEffect, useState } from "react";
 import { auth, db } from "src/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { getVimeoUserList } from "src/components/separate/Admin/fetch/getVimeoUserList";
+
+export const noCurrentUser = {
+  uid: "",
+  firstName: "",
+  lastName: "",
+  firstKana: "",
+  lastKana: "",
+  email: "",
+  phoneNumber: "",
+  university: "",
+  department: "",
+  club: "",
+  important: [],
+  industries: [],
+  occupations: [],
+  locations: [],
+  advantages: [],
+  comment: "",
+  condition: "",
+  vimeoUrl: "",
+};
 
 type ContextType = {
   currentUser: any;
@@ -10,15 +30,16 @@ type ContextType = {
 };
 
 const AuthContext = createContext<ContextType>({
-  currentUser: undefined,
+  currentUser: noCurrentUser,
   setCurrentUser: () => {},
 });
 
 const AuthProvider = (props: any) => {
-  const [currentUser, setCurrentUser] = useState<any>(undefined);
+  const [currentUser, setCurrentUser] = useState<any>(noCurrentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
+      console.log(user?.email);
       if (user) {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);

@@ -305,9 +305,9 @@ const CompanyId: NextPage = () => {
     });
   }, []);
 
-  if (!currentUser) return <Loading />;
+  if (currentUser?.uid === "") return <Loading />;
 
-  if (currentUser.companyId !== router.query.companyId) {
+  if (currentUser?.companyId !== router.query.companyId) {
     return <NotFound />;
   }
 

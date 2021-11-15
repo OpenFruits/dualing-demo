@@ -15,6 +15,7 @@ import { Footer } from "src/components/separate/Student/Footer";
 import { Loading } from "src/layout/application/Loading";
 import { NotFound } from "src/layout/application/NotFound";
 import Vimeo from "@u-wave/react-vimeo";
+import { onAuthStateChanged } from "firebase/auth";
 
 const StudentId: NextPage = () => {
   const router = useRouter();
@@ -23,16 +24,16 @@ const StudentId: NextPage = () => {
 
   // 未ログイン
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) router.push("/signin");
     });
   }, []);
 
   // ローディング
-  if (!currentUser) return <Loading />;
+  if (currentUser?.uid === "") return <Loading />;
 
   // 別ユーザーでログイン中
-  if (currentUser.uid !== router.query.studentId) {
+  if (currentUser?.uid !== router.query.studentId) {
     return <NotFound />;
   }
 

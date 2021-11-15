@@ -4,7 +4,7 @@ import { Button } from "src/components/shared/Button";
 import { Footer } from "src/layout/application/Footer";
 import { Header } from "src/layout/application/Header";
 import { auth } from "src/firebase";
-import { AuthContext } from "src/firebase/Auth";
+import { AuthContext, noCurrentUser } from "src/firebase/Auth";
 
 export const NotFound: VFC = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ export const NotFound: VFC = () => {
   const logout = () => {
     if (auth.currentUser) {
       auth.signOut().then(() => {
-        setCurrentUser(undefined);
+        setCurrentUser(noCurrentUser);
       });
     }
   };

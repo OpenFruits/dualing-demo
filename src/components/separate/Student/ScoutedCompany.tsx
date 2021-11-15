@@ -45,7 +45,6 @@ export const ScoutedCompany: VFC<Props> = (props) => {
 
   useEffect(() => {
     getRelation();
-    console.log(props.company);
   }, [currentUser]);
 
   const noticeBody = `

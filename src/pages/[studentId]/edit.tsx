@@ -24,6 +24,7 @@ import { EditForms as Inputs } from "src/constants/types";
 import { Loading } from "src/layout/application/Loading";
 import { NotFound } from "src/layout/application/NotFound";
 import { doc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Edit: NextPage = () => {
   const router = useRouter();
@@ -99,16 +100,16 @@ const Edit: NextPage = () => {
 
   // 未ログイン
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) router.push("/signin");
     });
   }, []);
 
   // ローディング
-  if (!currentUser) return <Loading />;
+  if (currentUser?.uid === "") return <Loading />;
 
   // 別ユーザーでログイン中
-  if (currentUser.uid !== router.query.studentId) {
+  if (currentUser?.uid !== router.query.studentId) {
     return <NotFound />;
   }
 

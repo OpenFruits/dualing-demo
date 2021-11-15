@@ -20,6 +20,7 @@ import {
   where,
 } from "firebase/firestore";
 import { Company } from "src/constants/types";
+import { onAuthStateChanged } from "firebase/auth";
 
 const CompanyId: NextPage = () => {
   const router = useRouter();
@@ -72,18 +73,18 @@ const CompanyId: NextPage = () => {
 
   // 未ログイン
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) router.push("/signin");
     });
   }, []);
 
   // ローディング
-  if (!currentUser || isMatch === undefined) {
+  if (currentUser?.uid === "" || isMatch === undefined) {
     return <Loading />;
   }
 
   // ログインユーザーとrouter.queryの学生が異なる
-  if (currentUser.uid !== router.query.studentId) {
+  if (currentUser?.uid !== router.query.studentId) {
     return <NotFound />;
   }
 

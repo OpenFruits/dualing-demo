@@ -187,9 +187,9 @@ const StudentId: NextPage = () => {
     });
   }, []);
 
-  if (!currentUser || !relation) return <Loading />;
+  if (currentUser?.uid === "" || !relation) return <Loading />;
 
-  if (currentUser.companyId !== router.query.companyId || notFound) {
+  if (currentUser?.companyId !== router.query.companyId || notFound) {
     return <NotFound />;
   }
 
