@@ -2,7 +2,7 @@
 
 const config = {
   reactStrictMode: true,
-  swcMinify: true,
+  // swcMinify: true,
 };
 
 export default config;
